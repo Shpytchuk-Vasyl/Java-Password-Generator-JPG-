@@ -9,23 +9,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("api/v1/users")
 public class UserController {
 
     @Autowired
     UserService service;
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) throws UserNotFoundException {
         return ResponseEntity.ok(service.findUser(id));
     }
 
-    @PostMapping("/user")
+    @PostMapping("")
     public ResponseEntity<User> registerUser(@RequestBody User user) throws UserIsAlreadyRegistered {
         return ResponseEntity.ok(service.registerUser(user));
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) throws UserNotFoundException {
         service.delete(id);
         return ResponseEntity.ok("User delete successfully");
