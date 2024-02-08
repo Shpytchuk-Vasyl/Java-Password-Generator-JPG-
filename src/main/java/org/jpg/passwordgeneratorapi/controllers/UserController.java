@@ -20,7 +20,7 @@ public class UserController {
         return ResponseEntity.ok(service.findUser(id));
     }
 
-    @PostMapping("")
+    @PostMapping("/")
     public ResponseEntity<User> registerUser(@RequestBody User user) throws UserIsAlreadyRegistered {
         return ResponseEntity.ok(service.registerUser(user));
     }
