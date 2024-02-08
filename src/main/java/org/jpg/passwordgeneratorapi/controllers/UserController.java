@@ -1,6 +1,7 @@
 package org.jpg.passwordgeneratorapi.controllers;
 
 import org.jpg.passwordgeneratorapi.entity.User;
+import org.jpg.passwordgeneratorapi.exceptions.UserIsAlreadyRegistered;
 import org.jpg.passwordgeneratorapi.exceptions.UserNotFoundException;
 import org.jpg.passwordgeneratorapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<User> registerUser(@RequestBody User user) throws UserNotFoundException {
+    public ResponseEntity<User> registerUser(@RequestBody User user) throws UserNotFoundException, UserIsAlreadyRegistered {
         return ResponseEntity.ok(service.registerUser(user));
     }
 
