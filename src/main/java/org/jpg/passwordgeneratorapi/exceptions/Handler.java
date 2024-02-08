@@ -18,7 +18,7 @@ public class Handler {
 
     @ExceptionHandler(UserIsAlreadyRegistered.class)
     public ResponseEntity<User> userIsAlreadyRegistered(UserIsAlreadyRegistered ex, WebRequest request) {
-        return new ResponseEntity<> (new User(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<> (ex.getUser(), HttpStatus.NOT_FOUND);
     }
 
 }
