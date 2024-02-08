@@ -17,7 +17,7 @@ public class PasswordService {
     }
 
     public List<Password> getAllPasswordsByUserId(Long id) {
-        return repository.findAllByUserId(id);
+        return repository.findAllByOwnerId(id);
     }
 
     public Password editPassword(Password newPassword) {
