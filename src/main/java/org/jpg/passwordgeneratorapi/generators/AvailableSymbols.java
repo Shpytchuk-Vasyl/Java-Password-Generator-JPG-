@@ -19,8 +19,8 @@ public class AvailableSymbols {
         for (char i = 'A'; i < 'z'; i++) {
             System.out.print(i);
         }
-        return (uppercase ? "A-Z" : "") +
-                (lowercase ? "a-z" : "") +
+        return (uppercase ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ" : "") +
+                (lowercase ? "abcdefghijklmnopqrstuvwxy" : "") +
                 (numbers ? "0123456789" : "") +
                 (symbols ? "?!;:.,_<>[]{}\\|/#@$%&`~^'₴*-+=" : "");
     }
