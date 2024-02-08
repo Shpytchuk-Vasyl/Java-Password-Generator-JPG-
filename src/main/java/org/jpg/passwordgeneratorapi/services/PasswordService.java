@@ -12,8 +12,8 @@ public class PasswordService {
     @Autowired
     PasswordRepository repository;
 
-    public void addNewPassword(Password password) {
-        repository.save(password);
+    public Password addNewPassword(Password password) {
+        return repository.save(password);
     }
 
     public List<Password> getAllPasswordsByUserId(Long id) {
