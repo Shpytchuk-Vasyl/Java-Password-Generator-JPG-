@@ -1,9 +1,9 @@
 package org.jpg.passwordgeneratorapi.controllers;
 
+import jakarta.validation.Valid;
 import org.jpg.passwordgeneratorapi.entity.Password;
 import org.jpg.passwordgeneratorapi.entity.User;
 import org.jpg.passwordgeneratorapi.exceptions.IllegalStateOfAvailableSymbols;
-import org.jpg.passwordgeneratorapi.exceptions.UserIsAlreadyRegistered;
 import org.jpg.passwordgeneratorapi.generators.AvailableSymbols;
 import org.jpg.passwordgeneratorapi.generators.PasswordGenerator;
 import org.jpg.passwordgeneratorapi.services.PasswordService;
@@ -33,7 +33,7 @@ public class PasswordController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Password> savePassword(@RequestBody Password password, @RequestBody User user) {
+    public ResponseEntity<Password> savePassword(@Valid @RequestBody Password password, @Valid @RequestBody User user) {
         return ResponseEntity.ok(service.addNewPassword(Password.builder()
                         .password(password.getPassword())
                         .name(password.getName())
@@ -43,9 +43,14 @@ public class PasswordController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<Password> editPassword(@RequestBody Password password) {
+    public ResponseEntity<Password> editPassword(@Valid @RequestBody Password password) {
         return ResponseEntity.ok(service.editPassword(password));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePassword(@RequestBody Password password) {
+        service.deletePasswordById(password.getId());
+        return ResponseEntity.ok("Password delete successfully");
+    }
 
 }

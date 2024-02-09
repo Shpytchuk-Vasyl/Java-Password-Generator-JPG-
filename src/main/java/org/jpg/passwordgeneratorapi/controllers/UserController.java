@@ -1,5 +1,6 @@
 package org.jpg.passwordgeneratorapi.controllers;
 
+import jakarta.validation.Valid;
 import org.jpg.passwordgeneratorapi.entity.User;
 import org.jpg.passwordgeneratorapi.exceptions.UserIsAlreadyRegistered;
 import org.jpg.passwordgeneratorapi.exceptions.UserNotFoundException;
@@ -21,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<User> registerUser(@RequestBody User user) throws UserIsAlreadyRegistered {
+    public ResponseEntity<User> registerUser(@Valid  @RequestBody User user) throws UserIsAlreadyRegistered {
         return ResponseEntity.ok(service.registerUser(user));
     }
 
