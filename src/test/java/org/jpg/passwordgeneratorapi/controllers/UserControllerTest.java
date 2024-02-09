@@ -69,16 +69,30 @@ class UserControllerTest {
                         "}"))
                 .andExpect(status().isOk());
 
-        user.setId(2L);
-        Mockito.when(service.registerUser(user)).thenThrow(new UserIsAlreadyRegistered(user));
+    }
 
-        mvc.perform(get("/api/v1/users/")
+    @Test
+    void registerUserWithInvalidEmail() throws Exception {
+        mvc.perform(post("/api/v1/users/")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\n" +
+                            "   \"email\":\"email\",\n" +
+                            "   \"password\":\"pass\"\n" +
+                            "}"))
+            .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
+    void registerUserWithInvalidPassword() throws Exception {
+        mvc.perform(post("/api/v1/users/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
                                 "   \"email\":\"email@gmail.com\",\n" +
-                                "   \"password\":\"pass\"\n" +
+                                "   \"password\":\"\"\n" +
                                 "}"))
-                .andExpect(status().isMethodNotAllowed());
+                .andExpect(status().isBadRequest());
+
     }
 
 }
