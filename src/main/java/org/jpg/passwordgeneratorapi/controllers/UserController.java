@@ -23,11 +23,14 @@ public class UserController {
 
     @PostMapping("/")
     public ResponseEntity<User> registerUser(@Valid  @RequestBody User user) throws UserIsAlreadyRegistered {
-        return ResponseEntity.ok(service.registerUser(user));
+        return ResponseEntity.ok(service.registerUser(User.builder()
+                        .password(user.getPassword())
+                        .email(user.getEmail())
+                        .build()));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) throws UserNotFoundException {
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.ok("User delete successfully");
     }

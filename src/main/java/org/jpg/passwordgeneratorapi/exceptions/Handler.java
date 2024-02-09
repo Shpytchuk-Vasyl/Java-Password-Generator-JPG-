@@ -12,8 +12,8 @@ import org.springframework.web.context.request.WebRequest;
 public class Handler {
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<User> userNotFoundException(RuntimeException ex, WebRequest request) {
-        return new ResponseEntity<> (new User(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> userNotFoundException(UserNotFoundException ex, WebRequest request) {
+        return new ResponseEntity<> (ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UserIsAlreadyRegistered.class)
@@ -22,7 +22,7 @@ public class Handler {
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class, IllegalStateOfAvailableSymbols.class})
-    public ResponseEntity<String> userIsAlreadyRegistered(Exception ex, WebRequest request) {
+    public ResponseEntity<String> methodArgumentNotValidException(Exception ex, WebRequest request) {
         return new ResponseEntity<> (ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
