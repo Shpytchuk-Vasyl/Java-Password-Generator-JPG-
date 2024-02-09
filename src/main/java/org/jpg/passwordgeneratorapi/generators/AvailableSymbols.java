@@ -11,13 +11,13 @@ import org.jpg.passwordgeneratorapi.exceptions.IllegalStateOfAvailableSymbols;
 @NoArgsConstructor
 public class AvailableSymbols {
 
-    @Positive
+    @Positive(message = "Size should be greater than 0")
     private Integer size;
     private Boolean uppercase, lowercase, numbers, symbols;
 
     public String getString() throws IllegalStateOfAvailableSymbols {
         if((uppercase || lowercase || numbers ||symbols) == false)
-            throw new IllegalStateOfAvailableSymbols();
+            throw new IllegalStateOfAvailableSymbols("At least one variable must be true");
         return (uppercase ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ" : "") +
                 (lowercase ? "abcdefghijklmnopqrstuvwxy" : "") +
                 (numbers ? "0123456789" : "") +

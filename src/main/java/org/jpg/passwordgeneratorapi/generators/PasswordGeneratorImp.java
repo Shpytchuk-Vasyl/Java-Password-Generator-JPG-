@@ -11,7 +11,7 @@ public class PasswordGeneratorImp implements PasswordGenerator {
     @Override
     public String generate(String available, Integer size) throws IllegalStateOfAvailableSymbols {
         if(available == null || available.isBlank() || size < 1)
-            throw new IllegalStateOfAvailableSymbols();
+            throw new IllegalStateOfAvailableSymbols("At least one variable must be true and size should be  greater than 0");
         Random random = new Random();
         int stringSize = available.length();
         return IntStream.range(0, size)

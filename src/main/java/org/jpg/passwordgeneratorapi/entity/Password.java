@@ -17,7 +17,7 @@ public class Password {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @NotBlank
+    @NotBlank(message = "Password can't be empty")
     private String password;
 
     @ManyToOne(

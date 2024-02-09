@@ -19,10 +19,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Password can't be null")
+    @NotBlank(message = "Password can't be empty")
     private String password;
-    @Email
+    @Email(message = "Incorrect email")
     private String email;
 
 }
