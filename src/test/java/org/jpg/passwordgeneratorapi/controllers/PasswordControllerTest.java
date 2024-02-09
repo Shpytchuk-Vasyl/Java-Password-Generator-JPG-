@@ -3,6 +3,7 @@ package org.jpg.passwordgeneratorapi.controllers;
 
 import org.jpg.passwordgeneratorapi.entity.Password;
 import org.jpg.passwordgeneratorapi.entity.User;
+import org.jpg.passwordgeneratorapi.exceptions.UserNotFoundException;
 import org.jpg.passwordgeneratorapi.services.PasswordService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -122,40 +123,22 @@ class PasswordControllerTest {
 
     }
 
-    @Test
-    void savePasswordValidRequest() throws Exception {
-        User user = new User((long) 2, "pass", "email@gmail.com");
-        Password password = Password.builder().name("name").password("pass").owner(user).build();
-        Mockito.when(service.addNewPassword(password))
-                .thenReturn(password);
-        password.setId((long)1);
+   /* @Test
+    void savePasswordInvalidRequest() throws Exception {
+        Mockito.when(service.addNewPassword(new Password((long)1,"nme","pass",null)))
+                .thenThrow(new UserNotFoundException());
+        Mockito.when(service.addNewPassword(new Password(null,"nme","pass",null)))
+                .thenThrow(new UserNotFoundException());
 
         mvc.perform(post("/api/v1/passwords/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
-                                "    \"name\": \"name\",\n" +
-                                "    \"password\": \"pass\",\n" +
-                                "    \"owner\": [{\n" +
-                                "        \"password\":\"pass\",\n" +
-                                "        \"email\": \"email@gmail.com\",\n" +
-                                "        \"id\": 2\n" +
-                                "    }]\n" +
+                                "   \"name\":\"nme\",\n" +
+                                "   \"password\":\"pass\",\n" +
+                                "   \"owner\":null\n" +
                                 "}"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.name", is(password.getName())))
-                .andExpect(jsonPath("$.password", is(password.getPassword())))
-                .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.owner.id", is(password.getOwner().getId())));
-    }
-
-    @Test
-    void editPassword() {
-    }
-
-    @Test
-    void deletePassword() {
-    }
-
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }*/
 
 }

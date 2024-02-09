@@ -4,13 +4,13 @@ import jakarta.validation.Valid;
 import org.jpg.passwordgeneratorapi.entity.Password;
 import org.jpg.passwordgeneratorapi.entity.User;
 import org.jpg.passwordgeneratorapi.exceptions.IllegalStateOfAvailableSymbols;
+import org.jpg.passwordgeneratorapi.exceptions.UserNotFoundException;
 import org.jpg.passwordgeneratorapi.generators.AvailableSymbols;
 import org.jpg.passwordgeneratorapi.generators.PasswordGenerator;
 import org.jpg.passwordgeneratorapi.services.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -34,17 +34,17 @@ public class PasswordController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Password> savePassword(@Valid @RequestBody Password password, @Valid @RequestBody User user) {
+    public ResponseEntity<Password> savePassword(@Valid @RequestBody Password password) throws UserNotFoundException {
         return ResponseEntity.ok(service.addNewPassword(Password.builder()
                         .password(password.getPassword())
                         .name(password.getName())
-                        .owner(user)
+                        .owner(password.getOwner())
                 .build())
         );
     }
 
     @PutMapping("/")
-    public ResponseEntity<Password> editPassword(@Valid @RequestBody Password password) {
+    public ResponseEntity<Password> editPassword(@Valid @RequestBody Password password) throws UserNotFoundException {
         return ResponseEntity.ok(service.editPassword(password));
     }
 
