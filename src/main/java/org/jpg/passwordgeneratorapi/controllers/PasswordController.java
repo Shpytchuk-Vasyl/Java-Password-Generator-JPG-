@@ -19,11 +19,12 @@ public class PasswordController {
 
     @Autowired
     PasswordService service;
+
     @Autowired
     PasswordGenerator generator;
 
     @GetMapping("/")
-    public ResponseEntity<String> getPassword(@RequestBody AvailableSymbols availableSymbols) throws IllegalStateOfAvailableSymbols {
+    public ResponseEntity<String> getPassword(@Valid @RequestBody AvailableSymbols availableSymbols) throws IllegalStateOfAvailableSymbols {
         return ResponseEntity.ok(generator.generate(availableSymbols.getString(), availableSymbols.getSize()));
     }
 

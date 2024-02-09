@@ -1,11 +1,11 @@
 package org.jpg.passwordgeneratorapi.generators;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import java.util.Random;
 import java.util.stream.*;
 
 
-@Service
+@Component
 public class PasswordGeneratorImp implements PasswordGenerator {
     @Override
     public String generate(String available, Integer size) {
