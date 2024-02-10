@@ -1,7 +1,8 @@
 import React from 'react';
 import {Button} from "./Button";
 import "./BackgroundImage.css"
-function BackgroundImage() {
+
+export const BackgroundImage = ({children}) => {
     return (
         <div className="background-image-container">
             {/*<img alt="img" src="../../public/images/img-1.jpg"></img>*/}
@@ -16,8 +17,9 @@ function BackgroundImage() {
                     GET STARTED
                 </Button>
             </div>
+            <div className="background-image-content">
+            {children}
+            </div>
         </div>
     );
-}
-
-export default BackgroundImage;
+} ;
