@@ -24,7 +24,7 @@ function Navbar() {
         <>
         <nav className="navbar">
             <div className="navbar-container">
-                <Link to="/" className="navbar-log" onClick={handleClick}>
+                <Link to="/" className="navbar-logo" onClick={handleClick}>
                     JPG <i className="fa fa-lock"/>
                 </Link>
                 <div className="menu-icon" onClick={handleClick}>
