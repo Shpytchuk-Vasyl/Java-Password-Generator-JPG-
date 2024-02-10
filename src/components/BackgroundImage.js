@@ -7,7 +7,7 @@ export const BackgroundImage = ({children}) => {
         <div className="background-image-container">
             {/*<img alt="img" src="../../public/images/img-1.jpg"></img>*/}
             <h1>Generate</h1>
-            <p>What are uou waiting for?</p>
+            <p>What are you waiting for?</p>
             <div className="background-image-btns">
                 <Button
                     className="btns"

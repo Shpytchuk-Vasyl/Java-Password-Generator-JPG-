@@ -19,18 +19,19 @@ function Navbar() {
     }, []);
 
     const handleClick = () => setClick(!click);
+    const closeOnClick = () => setClick(false);
 
     return (
         <>
         <nav className="navbar">
             <div className="navbar-container">
-                <Link to="/" className="navbar-logo" onClick={handleClick}>
+                <Link to="/" className="navbar-logo" onClick={closeOnClick}>
                     JPG <i className="fa fa-lock"/>
                 </Link>
                 <div className="menu-icon" onClick={handleClick}>
                     <i className={click ? "fas fa-times" : "fas fa-bars"} />
                 </div>
-                <ul className={click ? "nav-menu active" : "nav-menu"}>
+                <ul className={click ? "nav-menu active" : "nav-menu"} onClick={closeOnClick}>
                     <li className="nav-item">
                         <Link to="/" className="nav-links">Home</Link>
                     </li>
@@ -41,7 +42,7 @@ function Navbar() {
                         <Link to="/sing up" className="nav-links-mobile">Sing up</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/sing up" className="nav-links-mobile">Log in</Link>
+                        <Link to="/log in" className="nav-links-mobile">Log in</Link>
                     </li>
                 </ul>
                 {button && <Button to="/sing up" buttonStyle="btn--outline">Sing Up</Button>}
