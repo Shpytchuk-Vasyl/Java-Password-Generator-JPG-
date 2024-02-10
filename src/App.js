@@ -5,12 +5,14 @@ import {
     Route,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Home from "./components/pages/Home";
 
 function App() {
     return (
         <BrowserRouter>
+            <Navbar/>
             <Routes>
-                <Route path="/" element={<Navbar />} />
+                <Route path="/" element={<Home />} />
             </Routes>
         </BrowserRouter>
     );
