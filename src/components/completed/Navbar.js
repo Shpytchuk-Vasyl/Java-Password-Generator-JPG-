@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
-import {Button} from "./Button";
+import {Button} from "../Button";
 import "./Navbar.css"
 
 
@@ -44,7 +44,7 @@ function Navbar({isRegister, setRegister}) {
                         <Link to="/" className="nav-links">Home</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/profile" className="nav-links">Profile</Link>
+                        <Link to={isRegister ? "/profile" : "/sign up"} className="nav-links">Profile</Link>
                     </li>
                     {!isRegister && <li className="nav-item">
                         <Link to="/sign up" className="nav-links-mobile">Sign Up</Link>

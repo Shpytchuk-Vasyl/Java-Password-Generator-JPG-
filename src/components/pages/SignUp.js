@@ -1,8 +1,8 @@
 import React from 'react';
-import {RegistrationForm} from "../RegistrationForm";
-import {BackgroundImage} from "../BackgroundImage";
-import "../BackgroundImage.css"
-import "../RegistrationForm.css"
+import {RegistrationForm} from "../completed/RegistrationForm";
+import {BackgroundImage} from "../completed/BackgroundImage";
+import "../completed/BackgroundImage.css"
+import "../completed/RegistrationForm.css"
 function SignUp({setRegister}) {
     return (
         <BackgroundImage>

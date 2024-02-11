@@ -1,5 +1,5 @@
 import React from 'react';
-import {BackgroundImage} from "../BackgroundImage";
+import {BackgroundImage} from "../completed/BackgroundImage";
 import PasswordCard from "../PasswordCard"
 import "./Profile.css"
 

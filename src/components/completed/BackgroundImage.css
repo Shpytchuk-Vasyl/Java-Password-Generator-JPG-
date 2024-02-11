@@ -8,9 +8,9 @@ video {
 
 
 .background-image-container {
-    background: url("../../public/images/img-home.jpg") center fixed no-repeat;
     height: 100vh;
     width: 100%;
+    background: url("../../../public/images/img-home.jpg") center fixed no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;

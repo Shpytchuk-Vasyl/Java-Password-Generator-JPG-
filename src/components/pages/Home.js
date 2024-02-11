@@ -1,7 +1,7 @@
 import "../../App.css"
 import "./Home.css"
 import React from 'react';
-import {BackgroundImage} from "../BackgroundImage";
+import {BackgroundImage} from "../completed/BackgroundImage";
 import {Button} from "../Button";
 
 function Home() {

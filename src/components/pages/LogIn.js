@@ -1,6 +1,6 @@
 import React from 'react';
-import {BackgroundImage} from "../BackgroundImage";
-import {RegistrationForm} from "../RegistrationForm";
+import {BackgroundImage} from "../completed/BackgroundImage";
+import {RegistrationForm} from "../completed/RegistrationForm";
 
 function LogIn({setRegister}) {
     return (
