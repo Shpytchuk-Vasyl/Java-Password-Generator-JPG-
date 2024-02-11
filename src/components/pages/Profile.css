@@ -1,0 +1,8 @@
+.profile-cards {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.8);
+    width: 75%;
+    border-radius: 10px;
+}
