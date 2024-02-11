@@ -46,7 +46,7 @@ function Footer() {
                     <small className='website-rights'>JPG © 2024</small>
                     <div className='social-icons'>
                         <Link
-                            class='social-icon-link facebook'
+                            className='social-icon-link facebook'
                             to='/'
                             target='_blank'
                             aria-label='Facebook'
