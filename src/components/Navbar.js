@@ -2,14 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import {Button} from "./Button";
 import "./Navbar.css"
-import person from "../Person";
 
 
 
-
-function Navbar() {
+function Navbar({isRegister, setRegister}) {
     const [click,setClick] = useState(false)
     const [button,setButton] = useState(true)
+
+
+
 
 
     const showButton = () => {
@@ -19,6 +20,7 @@ function Navbar() {
             setButton(true)
         }
     }
+
     window.addEventListener("resize", showButton)
     useEffect(() => {
      showButton()
@@ -44,23 +46,23 @@ function Navbar() {
                     <li className="nav-item">
                         <Link to="/profile" className="nav-links">Profile</Link>
                     </li>
-                    {!person.isRegister() && <li className="nav-item">
+                    {!isRegister && <li className="nav-item">
                         <Link to="/sign up" className="nav-links-mobile">Sign Up</Link>
                     </li>
                     }
-                    {!person.isRegister() && <li className="nav-item">
+                    {!isRegister && <li className="nav-item">
                         <Link to="/log in" className="nav-links-mobile">Log In</Link>
                     </li>
                     }
-                    {person.isRegister() && <li className="nav-item">
+                    {isRegister && <li className="nav-item">
                         <Link to="/" className="nav-links-mobile">Log Out</Link>
                     </li>
                     }
 
                 </ul>
-                {button && !person.isRegister() && <Button to="/sign up" buttonStyle="btn--outline">Sign Up</Button>}
-                {button && !person.isRegister() && <Button to="/log in" buttonStyle="btn--outline">Log In</Button>}
-                {button && person.isRegister() && <Button to="/log out" buttonStyle="btn--outline">Log Out</Button>}
+                {button && !isRegister && <Button to="/sign up" buttonStyle="btn--outline">Sign Up</Button>}
+                {button && !isRegister && <Button to="/log in" buttonStyle="btn--outline">Log In</Button>}
+                {button && isRegister && <Button to="/" buttonStyle="btn--outline" onClick={event => setRegister(false)}>Log Out</Button>}
             </div>
         </nav>
         </>

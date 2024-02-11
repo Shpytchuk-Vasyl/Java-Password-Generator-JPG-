@@ -3,10 +3,10 @@ import {RegistrationForm} from "../RegistrationForm";
 import {BackgroundImage} from "../BackgroundImage";
 import "../BackgroundImage.css"
 import "../RegistrationForm.css"
-function SignUp() {
+function SignUp({setRegister}) {
     return (
         <BackgroundImage>
-            <RegistrationForm style="--signup"/>
+            <RegistrationForm style="--signup" setRegister={setRegister}/>
         </BackgroundImage>
     );
 }

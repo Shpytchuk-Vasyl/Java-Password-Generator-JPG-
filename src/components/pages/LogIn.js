@@ -2,10 +2,10 @@ import React from 'react';
 import {BackgroundImage} from "../BackgroundImage";
 import {RegistrationForm} from "../RegistrationForm";
 
-function LogIn() {
+function LogIn({setRegister}) {
     return (
         <BackgroundImage>
-            <RegistrationForm style="--login"/>
+            <RegistrationForm style="--login" setRegister={setRegister}/>
         </BackgroundImage>
     );
 }

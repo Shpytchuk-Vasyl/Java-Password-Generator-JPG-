@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import "./RegistrationForm.css"
 import {Link} from "react-router-dom";
-import person from "../Person";
+
 
 const STYLE = ["--signup", "--login"]
-export const RegistrationForm = ({style}) => {
+export const RegistrationForm = ({style, setRegister}) => {
+
 
     useEffect(() => {
 
@@ -25,7 +26,8 @@ export const RegistrationForm = ({style}) => {
     function handleCallback(response) {
         //send token to backend and clear navbar
         console.log(response.credential)
-        person.setRegister(true)
+        setRegister(true)
+        window.location.href = '/'
     }
 
 
@@ -53,8 +55,8 @@ export const RegistrationForm = ({style}) => {
                     </div>}
             </div>
             <div className="form-submit">
-                    {checkStyle === STYLE[0] && <button className="submit">Sign Up</button>}
-                    {checkStyle === STYLE[1] && <button className="submit">Log In</button>}
+                    {checkStyle === STYLE[0] && <button className="submit" onClick={event => setRegister(true)}>Sign Up</button>}
+                    {checkStyle === STYLE[1] && <button className="submit" onClick={event => setRegister(true)}>Log In</button>}
             </div>
             <div className="form-change-form">
                 {checkStyle === STYLE[0] && <p>Are you a member? <Link to="/log in" className="form-change-form-link">Log in now</Link></p>}

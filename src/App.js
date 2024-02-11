@@ -10,19 +10,19 @@ import Footer from "./components/Footer";
 import SignUp from "./components/pages/SignUp";
 import LogIn from "./components/pages/LogIn";
 import Profile from "./components/pages/Profile";
+import {useState} from "react";
 
-import {Profiler, useEffect} from "react";
 
 function App() {
-
+    let [isRegister, setRegister] = useState(false)
 
     return (
         <BrowserRouter>
-            <Navbar/>
+            <Navbar id="main-nav" isRegister={isRegister} setRegister={setRegister}/>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/sign up" element={<SignUp />} />
-                <Route path="/log in" element={<LogIn />} />
+                <Route path="/sign up" element={<SignUp setRegister={setRegister}/>} />
+                <Route path="/log in" element={<LogIn setRegister={setRegister}/>} />
                 <Route path="/profile" element={<Profile />} />
             </Routes>
             <Footer/>
