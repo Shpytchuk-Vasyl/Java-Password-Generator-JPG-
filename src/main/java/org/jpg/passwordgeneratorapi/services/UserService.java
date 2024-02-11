@@ -1,8 +1,10 @@
 package org.jpg.passwordgeneratorapi.services;
 
+import org.jpg.passwordgeneratorapi.exceptions.IncorrectPasswordException;
 import org.jpg.passwordgeneratorapi.exceptions.UserIsAlreadyRegistered;
 import org.jpg.passwordgeneratorapi.exceptions.UserNotFoundException;
 import org.jpg.passwordgeneratorapi.entity.User;
+import org.jpg.passwordgeneratorapi.exceptions.UserRegisteredWithGoogleException;
 import org.jpg.passwordgeneratorapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +32,16 @@ public class UserService {
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public User login(User user) throws UserNotFoundException, UserRegisteredWithGoogleException, IncorrectPasswordException {
+        User find = findUser(user.getEmail());
+        if(find.getPassword() == null) {
+            throw new UserRegisteredWithGoogleException();
+        } else if(find.getPassword().equals(user.getPassword())){
+            return find;
+        } else {
+            throw new IncorrectPasswordException();
+        }
     }
 }

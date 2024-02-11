@@ -21,7 +21,10 @@ public class Handler {
         return new ResponseEntity<> (ex.getUser(), HttpStatus.METHOD_NOT_ALLOWED);
     }
 
-    @ExceptionHandler({MethodArgumentNotValidException.class, IllegalStateOfAvailableSymbols.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class,
+            IllegalStateOfAvailableSymbols.class,
+            IncorrectPasswordException.class,
+            UserRegisteredWithGoogleException.class})
     public ResponseEntity<String> methodArgumentNotValidException(Exception ex, WebRequest request) {
         return new ResponseEntity<> (ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
