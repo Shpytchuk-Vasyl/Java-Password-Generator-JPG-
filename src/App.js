@@ -11,9 +11,11 @@ import SignUp from "./components/pages/SignUp";
 import LogIn from "./components/pages/LogIn";
 import Profile from "./components/pages/Profile";
 
-import {Profiler} from "react";
+import {Profiler, useEffect} from "react";
 
 function App() {
+
+
     return (
         <BrowserRouter>
             <Navbar/>
