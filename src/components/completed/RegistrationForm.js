@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import "./RegistrationForm.css"
 import {Link} from "react-router-dom";
 
@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 const STYLE = ["--signup", "--login"]
 export const RegistrationForm = ({style, setRegister}) => {
 
+    const [passwordShown, setPasswordShown] = useState(false);
 
     useEffect(() => {
 
@@ -45,17 +46,19 @@ export const RegistrationForm = ({style, setRegister}) => {
                     <input type="form-input-email" placeholder="Enter email adress"/>
                 </div>
                 <div className="form-input">
-                    <i className="fa fa-lock"/>
-                    <input type="form-input-password" placeholder="Enter password"/>
+                    <i className={passwordShown ? "fa fa-unlock" : "fa fa-lock"}
+                       onClick={event => setPasswordShown(!passwordShown)}/>
+                    <input type={passwordShown ? "text" : "password"} placeholder="Enter password"/>
                 </div>
                 {checkStyle === STYLE[0] &&
                     <div className="form-input">
-                        <i className="fa fa-lock"/>
-                        <input type="form-input-password" placeholder="Repeat password"/>
+                        <i className={passwordShown ? "fa fa-unlock" : "fa fa-lock"}
+                           onClick={event => setPasswordShown(!passwordShown)}/>
+                        <input type={passwordShown ? "text" : "password"} placeholder="Repeat password"/>
                     </div>}
             </div>
             <div className="form-submit">
-                    {checkStyle === STYLE[0] && <button className="submit" onClick={event => setRegister(true)}>Sign Up</button>}
+                {checkStyle === STYLE[0] && <button className="submit" onClick={event => setRegister(true)}>Sign Up</button>}
                     {checkStyle === STYLE[1] && <button className="submit" onClick={event => setRegister(true)}>Log In</button>}
             </div>
             <div className="form-change-form">

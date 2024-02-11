@@ -9,7 +9,7 @@ function Footer() {
                 <div className='footer-link-wrapper'>
                     <div className='footer-link-items'>
                         <h2>About Us</h2>
-                        <Link to='/sign-up'>How it works</Link>
+                        <Link to='/'>How it works</Link>
                         <Link to='/'>Careers</Link>
                         <Link to='/'>Investors</Link>
                         <Link to='/'>Terms of Service</Link>
@@ -78,7 +78,7 @@ function Footer() {
                             <i className='fab fa-twitter'/>
                         </Link>
                         <Link
-                            class='social-icon-link twitter'
+                            className='social-icon-link twitter'
                             to='/'
                             target='_blank'
                             aria-label='LinkedIn'
