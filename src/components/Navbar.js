@@ -39,13 +39,13 @@ function Navbar() {
                         <Link to="/profile" className="nav-links">Profile</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/sing up" className="nav-links-mobile">Sing up</Link>
+                        <Link to="/sign up" className="nav-links-mobile">Sign up</Link>
                     </li>
                     <li className="nav-item">
                         <Link to="/log in" className="nav-links-mobile">Log in</Link>
                     </li>
                 </ul>
-                {button && <Button to="/sing up" buttonStyle="btn--outline">Sing Up</Button>}
+                {button && <Button to="/sign up" buttonStyle="btn--outline">Sign Up</Button>}
                 {button && <Button to="/log in" buttonStyle="btn--outline">Log In</Button>}
             </div>
         </nav>
