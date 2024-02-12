@@ -3,6 +3,7 @@ import "./Home.css"
 import React from 'react';
 import {BackgroundImage} from "../completed/BackgroundImage";
 import {Button} from "../Button";
+import Generator from "../completed/Generator";
 
 function Home() {
     return (
@@ -16,10 +17,18 @@ function Home() {
                             className="btns"
                             to="/"
                             buttonStyle="btn--outline"
-                            buttonSize="btn--large">
+                            buttonSize="btn--large"
+                            onClick={() => {
+                                window.scrollBy({
+                                    top: 600,
+                                    behavior: 'smooth',
+                                });
+                            }}
+                        >
                             GET STARTED
                         </Button>
                     </div>
+                    <Generator />
                 </div>
             </BackgroundImage>
         </>

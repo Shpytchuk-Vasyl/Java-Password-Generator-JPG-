@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import "./PasswordCard.css"
-const PasswordCard = ({ name, password, onEdit, onDelete }) => {
+const PasswordCard = ({ _name, _password, onEdit, onDelete }) => {
 
     const [passwordShown, setPasswordShown] = useState(false);
     const [edit, setEdit] = useState(false);
-    // Password toggle handler
+    const [name, setName] = useState(_name);
+    const [password, setPassword] = useState(_password);
 
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
@@ -30,8 +31,8 @@ const PasswordCard = ({ name, password, onEdit, onDelete }) => {
     return (
         <div className="password-card">
             <div className="password-card-info">
-                <input className="name" type="text" readOnly={!edit} value={name}/>
-                <input className="password" type={passwordShown ? "text" : "password"} readOnly={!edit} value={password}/>
+                <input className="name" type="text" readOnly={!edit} value={name} onInput={event =>{setName(event.target.value);} }/>
+                <input className="password" type={passwordShown ? "text" : "password"} readOnly={!edit} value={password} onInput={event =>{setPassword(event.target.value);}}/>
             </div>
             <div className="password-card-actions">
                 <button onClick={togglePassword}>
