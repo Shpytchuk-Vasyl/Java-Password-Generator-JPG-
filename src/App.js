@@ -11,6 +11,7 @@ import SignUp from "./components/pages/SignUp";
 import LogIn from "./components/pages/LogIn";
 import Profile from "./components/pages/Profile";
 import {useState} from "react";
+import {BackgroundImage} from "./components/completed/BackgroundImage";
 
 
 function App() {
@@ -18,14 +19,17 @@ function App() {
 
     return (
         <BrowserRouter>
+
             <Navbar id="main-nav" isRegister={isRegister} setRegister={setRegister}/>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/sign up" element={<SignUp setRegister={setRegister}/>} />
-                <Route path="/log in" element={<LogIn setRegister={setRegister}/>} />
-                <Route path="/profile" element={<Profile />} />
-            </Routes>
+            <BackgroundImage>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/sign up" element={<SignUp setRegister={setRegister}/>} />
+                    <Route path="/log in" element={<LogIn setRegister={setRegister}/>} />
+                    <Route path="/profile" element={<Profile />} />
+                </Routes>
             <Footer/>
+            </BackgroundImage>
         </BrowserRouter>
     );
 }

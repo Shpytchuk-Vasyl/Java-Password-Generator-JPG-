@@ -8,7 +8,6 @@ import Generator from "../completed/Generator";
 function Home() {
     return (
         <>
-            <BackgroundImage>
                 <div className="home-container">
                     <h1>Generate</h1>
                     <p>What are you waiting for?</p>
@@ -30,7 +29,6 @@ function Home() {
                     </div>
                     <Generator />
                 </div>
-            </BackgroundImage>
         </>
     );
 }
