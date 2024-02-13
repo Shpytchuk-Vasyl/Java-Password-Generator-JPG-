@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("api/v1/users")
 public class UserController {
@@ -18,12 +19,8 @@ public class UserController {
     @Autowired
     UserService service;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) throws UserNotFoundException {
-        return ResponseEntity.ok(service.findUser(id));
-    }
 
-    @GetMapping("/}")
+    @GetMapping("/")
     public ResponseEntity<User> userLogIn(@RequestBody User user) throws UserNotFoundException, IncorrectPasswordException, UserRegisteredWithGoogleException {
         return ResponseEntity.ok(service.login(user));
     }
