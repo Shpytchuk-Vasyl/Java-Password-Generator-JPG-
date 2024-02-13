@@ -1,17 +1,41 @@
 .wave-container {
     position: absolute;
     left: 0;
-    bottom: 0;
-    height: 100px;
+    top: 0;
+    height: 100%;
     width: 100%;
-    z-index: -1;
+    z-index: 0;
 }
 
+
 .waves {
-    background-color: transparent;
-    padding: 15rem 0 0 0;
+    position: absolute;
     overflow: hidden;
+    left: 0;
+    bottom: 0;
     z-index: 0;
-    position: relative;
+    height: 15%;
     width: 100%;
+    transition: height 10ms;
+}
+
+
+
+
+.waves-children {
+    position: relative;
+    overflow: hidden;
+    #height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.my-wave-container {
+    position: relative;
+    background-color: transparent;
+    overflow: hidden;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+
 }

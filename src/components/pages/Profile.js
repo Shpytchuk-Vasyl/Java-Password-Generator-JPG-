@@ -5,12 +5,10 @@ import "./Profile.css"
 
 function Profile() {
     return (
-        <BackgroundImage>
             <div className="profile-cards">
                 <PasswordCard _name="Gmail" _password="pass"/>
                 <PasswordCard _name="Instagram" _password="pass"/>
             </div>
-        </BackgroundImage>
     );
 }
 

@@ -5,36 +5,39 @@ import {MyWave} from "./MyWave";
 
 
 function Footer() {
-    const [scrollHeight, setScrollHeight] = useState(100);
+    const eleRef = useRef(null);
+    const [isInView, setIsInView] = useState(false);
+
+    const checkInView = () => {
+        const rect = eleRef.current.getBoundingClientRect();
+        setIsInView(rect.top < window.innerHeight && rect.bottom >= 0);
+    };
 
     useEffect(() => {
-        const handleScroll = () => {
-            const footerContainer = document.getElementById('footer-container');
-            const footerHeight = footerContainer.clientHeight;
-            const scrollPosition = window.scrollY;
-            const totalPageHeight = document.documentElement.clientHeight;
+        checkInView();
+    }, []);
 
-            console.log("footer "+ footerHeight);
-            console.log("scroll " + scrollPosition);
-            console.log("total " + totalPageHeight);
-
-            if (totalPageHeight + 300 < scrollPosition) {
-                setScrollHeight((totalPageHeight + footerHeight) -scrollPosition + 200);
-            } else {
-                setScrollHeight(footerHeight - 200);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
+    useEffect(() => {
+        document.addEventListener('scroll', checkInView);
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            document.removeEventListener('scroll', checkInView);
         };
     }, []);
 
+
+    useEffect(() => {
+        if (isInView) {
+            document.getElementById("waves").style.position = "fixed"
+            console.log('Елемент у видимому полі');
+        } else {
+            document.getElementById("waves").style.position = "absolute"
+            console.log('Елемент у no видимому полі');
+        }
+    }, [isInView]);
+
     return (
-        <MyWave scrollHeight={`${scrollHeight}px`}>
-            <div className="footer-container" id='footer-container'>
+        <MyWave >
+            <div className="footer-container" id='footer-container' ref={eleRef}>
                 <div className='footer-links'>
                         <div className='footer-link-wrapper'>
                             <div className='footer-link-items'>

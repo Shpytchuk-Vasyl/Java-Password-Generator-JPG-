@@ -4,9 +4,7 @@ import {RegistrationForm} from "../completed/RegistrationForm";
 
 function LogIn({setRegister}) {
     return (
-        <BackgroundImage>
             <RegistrationForm style="--login" setRegister={setRegister}/>
-        </BackgroundImage>
     );
 }
 

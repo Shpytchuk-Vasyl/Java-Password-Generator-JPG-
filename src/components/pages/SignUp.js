@@ -5,9 +5,7 @@ import "../completed/BackgroundImage.css"
 import "../completed/RegistrationForm.css"
 function SignUp({setRegister}) {
     return (
-        <BackgroundImage>
             <RegistrationForm style="--signup" setRegister={setRegister}/>
-        </BackgroundImage>
     );
 }
 

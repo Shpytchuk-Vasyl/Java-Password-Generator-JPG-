@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     padding-top: 300px;
+    padding-bottom: 200px;
     margin: auto;
     #background: rgba(255,255,255,0.7);
     text-align: center;
@@ -11,6 +12,7 @@
 
 .input-container{
     margin-top: 40px;
+    margin-bottom: 40px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -66,6 +68,7 @@
     font-size: 20px;
     color: rgba(0,0,0,0.9);
     opacity: 0.7;
+    background: transparent;
 }
 
 
@@ -149,6 +152,78 @@
 }
 
 
+
+
+.generator-setting-complexity {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.complexity-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 25px;
+    #opacity: 0.7;
+}
+
+.checkbox-input {
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.25em solid;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+
+    &::before {
+        content: "";
+        width: 0.65em;
+        height: 0.65em;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        box-shadow: inset 1em 1em #82CFD0;
+        transform-origin: bottom left;
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    }
+    &:checked::before {
+        transform: scale(1);
+    }
+    &:hover {
+        outline: max(2px, 0.15em) solid currentColor;
+        outline-offset: max(2px, 0.15em);
+    }
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    color: white;
+
+}
+
+.checkbox-input:checked + .checkbox-label {
+    background-color: #87ceeb; /* колір при виборі */
+}
+
+/* Додайте стиль для завжди активного чекбоксу */
+.checkbox-input:checked + .checkbox-label:active {
+    background-color: #1e90ff; /* змінений колір при активному стані (вибір) */
+}
+
+
+
+
+
+
 @media screen and (max-width: 960px) {
     .input-controler,
     .password-input {
@@ -173,6 +248,10 @@
     .setting-length-wrapper,
     .slider-settings > button {
         font-size: 20px;
+    }
+
+    .complexity-checkbox {
+        font-size: 18px;
     }
 
 }

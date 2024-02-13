@@ -4,7 +4,7 @@ function Generator() {
     const [reliability,setReliability] = useState("very strong")
     const [passwordLength,setPasswordLength] = useState(50)
     return (
-        <div className="generator-container">
+        <div className="generator-container" id="generator-container">
             <h1>Java Password Generator</h1>
             <p>Create strong and secure passwords to keep your account safe online.</p>
             <div className="input-container">
@@ -16,7 +16,7 @@ function Generator() {
                     <i className="fa fa-copy"/>
                 </div>
                 <div className="button-wrapper">
-                <button className="generate-button">Generate</button>
+                    <button className="generate-button">Generate</button>
                 </div>
             </div>
             <div className="generator-setting-container">
@@ -47,14 +47,14 @@ function Generator() {
                 </div>
                 <div className="generator-setting-complexity">
                     <div className="complexity-checkbox">
-                        <input type="checkbox" className="checkbox-input lowercase"/>
                         <label>abc</label>
-                        <input type="checkbox" className="checkbox-input upperrcase"/>
+                        <input type="checkbox" className="checkbox-input lowercase"/>
                         <label>ABC</label>
-                        <input type="checkbox" className="checkbox-input numbers"/>
+                        <input type="checkbox" className="checkbox-input upperrcase"/>
                         <label>0-9</label>
-                        <input type="checkbox" className="checkbox-input symbols"/>
+                        <input type="checkbox" className="checkbox-input numbers"/>
                         <label>%-?</label>
+                        <input type="checkbox" className="checkbox-input symbols"/>
                     </div>
                 </div>
             </div>

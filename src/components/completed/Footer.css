@@ -1,23 +1,16 @@
 .footer-container {
     background-color: transparent;
-    padding: 15rem 0 2rem 0;
+    margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    position: relative;
     z-index: 2;
 }
 
-.footer-container::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: transparent;
-    z-index: 2;
-}
+
 
 .footer-subscription {
     display: flex;
