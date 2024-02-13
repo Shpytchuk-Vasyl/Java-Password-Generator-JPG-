@@ -1,14 +1,13 @@
 package org.jpg.passwordgeneratorapi.security.jwt;
 
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.jpg.passwordgeneratorapi.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 
 @Service
@@ -20,25 +19,27 @@ public class JwtUtil {
     private int jwtExpiration;
     public  String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl)authentication.getPrincipal();
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + jwtExpiration);
+
         return Jwts.builder()
-                .setSubject(userPrincipal.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + jwtExpiration))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .subject(userPrincipal.getUsername())
+                .issuedAt(now)
+                .expiration(expiryDate)
+                .signWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
                 .compact();
     }
 
-    public boolean validateJwtToken(String token) {
-        try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJwt(token);
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
+    public Claims validateToken(String token) {
+        return Jwts.parser()
+                .decryptWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
+                .verifyWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
+                .build()
+                .parseEncryptedClaims(token)
+                .getPayload();
     }
 
-    public String getEmailFromToken(String token) {
-      return  Jwts.parser().setSigningKey(jwtSecret).parseClaimsJwt(token).getBody().getSubject();
+    public String getEmailFromToken(Claims claims) {
+       return claims.getSubject();
     }
 }

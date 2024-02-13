@@ -29,9 +29,9 @@ public class PasswordController {
         return ResponseEntity.ok(generator.generate(availableSymbols.getString(), availableSymbols.getSize()));
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<Password>> getPasswords(@PathVariable Long userId)  {
-        return ResponseEntity.ok(service.getAllPasswordsByUserId(userId));
+    @GetMapping("/{email}")
+    public ResponseEntity<List<Password>> getPasswords(@PathVariable String email)  {
+        return ResponseEntity.ok(service.getAllPasswordsByEmail(email));
     }
 
     @PostMapping("/")

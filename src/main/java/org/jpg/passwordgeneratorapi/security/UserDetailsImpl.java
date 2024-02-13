@@ -2,11 +2,13 @@ package org.jpg.passwordgeneratorapi.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.jpg.passwordgeneratorapi.entity.User;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -30,7 +32,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),
-                new ArrayList<>()
+                Collections.singleton(() -> ("USER"))
         );
     }
 

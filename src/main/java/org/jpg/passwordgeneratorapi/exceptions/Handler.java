@@ -16,15 +16,11 @@ public class Handler {
         return new ResponseEntity<> (ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UserIsAlreadyRegistered.class)
-    public ResponseEntity<User> userIsAlreadyRegistered(UserIsAlreadyRegistered ex, WebRequest request) {
-        return new ResponseEntity<> (ex.getUser(), HttpStatus.METHOD_NOT_ALLOWED);
-    }
-
     @ExceptionHandler({MethodArgumentNotValidException.class,
             IllegalStateOfAvailableSymbols.class,
             IncorrectPasswordException.class,
-            UserRegisteredWithGoogleException.class})
+            UserRegisteredWithGoogleException.class,
+            UserIsAlreadyRegistered.class})
     public ResponseEntity<String> methodArgumentNotValidException(Exception ex, WebRequest request) {
         return new ResponseEntity<> (ex.getMessage(), HttpStatus.BAD_REQUEST);
     }

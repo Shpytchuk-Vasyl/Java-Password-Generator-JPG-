@@ -17,7 +17,7 @@ public class PasswordService {
         try {
             return repository.save(password);
         } catch (Exception e) {
-            throw new UserNotFoundException(e);
+            throw new UserNotFoundException();
         }
     }
 
@@ -33,4 +33,7 @@ public class PasswordService {
         repository.deleteById(id);
     }
 
+    public List<Password> getAllPasswordsByEmail(String email) {
+        return repository.findAllByOwnerEmail(email);
+    }
 }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface PasswordRepository extends JpaRepository<Password, Long> {
     List<Password> findAllByOwnerId(Long userId);
 
+    List<Password> findAllByOwnerEmail(String email);
+
 }

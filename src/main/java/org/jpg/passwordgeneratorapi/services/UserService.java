@@ -17,7 +17,7 @@ public class UserService {
     UserRepository repository;
     public User registerUser(User user) throws UserIsAlreadyRegistered {
         Optional<User> user1 = repository.findByEmail(user.getEmail());
-        if(user1.isPresent()) throw new UserIsAlreadyRegistered(user1.get());
+        if(user1.isPresent()) throw new UserIsAlreadyRegistered("User with this email is already registered");
         return repository.save(user);
     }
 

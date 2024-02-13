@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,7 +40,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody User user) throws UserNotFoundException, IncorrectPasswordException, UserRegisteredWithGoogleException {
         userService.login(user);
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtil.generateJwtToken(authentication);
 
@@ -51,7 +53,7 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@Valid  @RequestBody User user) throws UserIsAlreadyRegistered, IncorrectPasswordException, UserRegisteredWithGoogleException, UserNotFoundException {
         userService.registerUser(User.builder()
                 .email(user.getEmail())
-                .password(passwordEncoder.encode(user.getPassword()))
+                .password(user.getPassword())
                 .build());
         return authenticateUser(user);
     }

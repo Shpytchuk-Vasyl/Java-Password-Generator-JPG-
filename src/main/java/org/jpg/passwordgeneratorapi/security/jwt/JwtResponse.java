@@ -9,7 +9,6 @@ public class JwtResponse {
 
     private String jwt;
     private String email;
-    private String type = "Bearer";
 
     public JwtResponse(String jwt, String email) {
         this.jwt = jwt;
