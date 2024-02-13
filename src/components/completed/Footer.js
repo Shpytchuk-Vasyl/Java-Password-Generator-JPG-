@@ -126,32 +126,4 @@ function Footer() {
     );
 }
 
-/*
-
-<!-- index.html
-<html> <head>
-<--
-<link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-<footer>
-
-<section>
-<ul class="socials">
-<li><a class="fa-brands fa-facebook"></a></li> <li><a class="fa-brands fa-twitter"></a></li> <li><a class="fa-brands fa-linkedin"></a></li> <li><a class="fa-brands fa-instagram"></a></li> </ul>
-<ul class="links">
-<li><a>Home</a></li>
-<li><a>About</a></li>
-<li><a>Services</a></li>
-<li><a>Team</a></li>
-<li><a>Contact</a></li>
-</ul>
-<p class="legal">© 2023 All rights reserved</p>
-</section>
-</footer>
-</body>
-</html>
-* */
-
-
-    export default Footer;
+export default Footer;
