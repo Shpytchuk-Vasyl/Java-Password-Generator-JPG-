@@ -2,39 +2,37 @@ import axios from "axios"
 
 const API_URL = "http://localhost:8080/api/v1/auth/"
 class AuthService {
-    login(username, password, badRequestHandle) {
-        return axios.post(API_URL + "login", {username,password}).then(
-            resource => {
-                if(resource.status === 200) {
-                    localStorage.setItem("user", resource.data)
-                } else {
-                    badRequestHandle(resource.status, resource.data)
+    login(email, password, RequestHandle) {
+        this.sign(email, password, RequestHandle,"login")
+    }
+
+    sign(email, password, RequestHandle, endPoint) {
+        axios.post(API_URL + endPoint, {
+            "email": email,
+            "password": password
+        })
+            .then(
+                resource => {
+                    localStorage.setItem("user", JSON.stringify(resource.data))
+                    RequestHandle(resource.status, resource.data)
                 }
-                return resource.data
-            }
-        )
+            )
     }
 
 
-    signup(username, password, badRequestHandle ) {
-        return axios.post(API_URL + "signup", {username,password}).then(
-            resource => {
-                if(resource.status === 200) {
-                    localStorage.setItem("user", resource.data)
-                } else {
-                    badRequestHandle(resource.status, resource.data)
-                }
-                return resource.data
-            }
-        )
+    signup(email, password, RequestHandle ) {
+        this.sign(email, password, RequestHandle,"signup")
     }
 
     logout() {
+
         localStorage.removeItem("user")
     }
 
     getUser() {
-        return JSON.parse(localStorage.getItem("user")).user
+        //localStorage.setItem("user", null)
+        let info = JSON.parse(localStorage.getItem("user"))
+        return info === null ? null : info.user
     }
 
 }

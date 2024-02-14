@@ -26,30 +26,51 @@ class UserService {
     }
 
     saveUserPassword(password, handleResponse) {
-        axios.post(API_URL+ "passwords/", { password },{headers: AuthHeader()})
+        axios.post(API_URL+ "passwords/", password ,{headers: AuthHeader()})
             .then(resource => {
                     handleResponse(resource.status, resource.data);
+            })
+            .catch(error => {
+                handleResponse(error.response ? error.response.status : error.request.code, error.response ? error.response.data : error.request.data);
+                console.log(error)
             })
     }
 
     editUserPassword(password, handleResponse) {
-        axios.put(API_URL+ "passwords/", { password },{headers: AuthHeader()})
+        axios.put(API_URL+ "passwords/", password,{headers: AuthHeader()})
             .then(resource => {
                     handleResponse(resource.status, resource.data);
+                console.log(resource)
+
+            })
+            .catch(error => {
+                handleResponse(error.response ? error.response.status : error.request.code, error.response ? error.response.message : error.request.message);
+                console.log(error)
             })
     }
 
     deleteUserPassword(password, handleResponse) {
-        axios.delete(API_URL+ "passwords/" + password.id,{headers: AuthHeader()})
+        axios.delete(API_URL+ "passwords/" + password.id,{headers: AuthHeader(), data: password})
             .then(resource => {
                 handleResponse(resource.status, resource.data);
+                console.log(resource)
+            })
+            .catch(error => {
+                handleResponse(error.response ? error.response.status : error.request.code, error.response ? error.response.message : error.request.message);
+                console.log(error)
             })
     }
 
     getUsersPasswords(handleResponse) {
-        axios.get(API_URL+ "passwords/" + AuthService.getUser().id, {headers: AuthHeader()} )
+        return axios.get(API_URL+ "passwords/" + AuthService.getUser().id, {headers: AuthHeader()} )
             .then(resource => {
                     handleResponse(resource.status, resource.data);
+                console.log(resource)
+                return resource.data
+            })
+            .catch(error => {
+                handleResponse(error.response ? error.response.status : error.request.code, error.response ? error.response.message : error.request.message);
+                console.log(error)
             })
     }
 
@@ -59,8 +80,9 @@ class UserService {
         const isEmailValid = emailRegex.test(email);
         const isPasswordNotEmpty = password1.trim() !== '';
         const doPasswordsMatch = password1 === password2;
-
+        const isPasswordGreater8 = password1.length >= 8;
         return {
+            isPasswordGreater8,
             isEmailValid,
             isPasswordNotEmpty,
             doPasswordsMatch,

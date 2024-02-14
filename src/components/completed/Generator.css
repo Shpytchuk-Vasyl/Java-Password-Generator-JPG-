@@ -71,6 +71,7 @@
 }
 
 .reliability-label {
+    padding-left: 10px;
     flex-shrink: 0;
     font-size: 15px;
     background: transparent;
