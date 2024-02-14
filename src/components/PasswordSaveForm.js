@@ -33,24 +33,27 @@ const PasswordSaveForm = ({password, isVisible, handleCancel}) => {
             isVisible
             &&
         <div className="password-form">
-            <h2>Enter password details</h2>
-            <label htmlFor="name">Enter name for the password (English):</label>
+            <h2>Details</h2>
+            <div className="password-form-container">
+
+            <label  htmlFor="name">Enter name for the password:</label>
             <input
                 type="text"
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
-            <label htmlFor="password">Enter password:</label>
+            <label htmlFor="password">Password:</label>
             <input
-                type="password"
+                type="text"
                 id="password"
                 value={password}
                 readOnly
             />
             <div className="button-container">
-                <button onClick={handleSave}>Save</button>
-                <button onClick={handleCancel}>Cancel</button>
+                <div onClick={handleSave}>Save</div>
+                <div onClick={handleCancel}>Cancel</div>
+            </div>
             </div>
         </div>
         }
