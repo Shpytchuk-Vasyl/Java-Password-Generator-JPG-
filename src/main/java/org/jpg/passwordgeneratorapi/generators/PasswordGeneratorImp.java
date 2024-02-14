@@ -1,5 +1,6 @@
 package org.jpg.passwordgeneratorapi.generators;
 
+import lombok.SneakyThrows;
 import org.jpg.passwordgeneratorapi.exceptions.IllegalStateOfAvailableSymbols;
 import org.springframework.stereotype.Component;
 import java.util.Random;
@@ -23,8 +24,21 @@ public class PasswordGeneratorImp implements PasswordGenerator {
                 .collect(Collectors.joining());
     }
 
+    @SneakyThrows
     @Override
-    public String getReliability(String pass) {
-        return null;
+    public String getReliability(AvailableSymbols pass) {
+        if(pass.getSize() < 6) return "very weak";
+        int res = (pass.getUppercase() ? 1 : 0) +
+                (pass.getLowercase() ? 1 : 0) +
+                (pass.getSymbols() ? 1 : 0) +
+                (pass.getNumbers() ? 1 : 0);
+
+        return switch (res) {
+            case 1 -> "weak";
+            case 2 -> "good";
+            case 3 -> "strong";
+            case 4 -> "very strong";
+            default -> "error";
+        };
     }
 }

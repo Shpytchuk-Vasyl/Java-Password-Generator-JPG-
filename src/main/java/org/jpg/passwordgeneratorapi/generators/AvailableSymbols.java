@@ -7,14 +7,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jpg.passwordgeneratorapi.exceptions.IllegalStateOfAvailableSymbols;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Data
-@NoArgsConstructor
 public class AvailableSymbols {
 
     @Positive(message = "Size should be greater than 0")
     private Integer size;
     private Boolean uppercase, lowercase, numbers, symbols;
+
+    public AvailableSymbols() {
+        this.size = 1;
+        this.uppercase = true;
+        this.lowercase = true;
+        this.numbers = true;
+        this.symbols = true;
+    }
 
     @Valid
     public AvailableSymbols(Integer size, Boolean uppercase, Boolean lowercase, Boolean numbers, Boolean symbols) {
@@ -32,5 +40,12 @@ public class AvailableSymbols {
                 (lowercase ? "abcdefghijklmnopqrstuvwxy" : "") +
                 (numbers ? "0123456789" : "") +
                 (symbols ? "?!;:.,_<>[]{}\\|/#@$%&`~^'₴*-+=" : "");
+    }
+
+    public String[] getStrings() {
+        return new String[]{(uppercase ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ" : ""),
+                (lowercase ? "abcdefghijklmnopqrstuvwxy" : ""),
+                (numbers ? "0123456789" : ""),
+                (symbols ? "?!;:.,_<>[]{}\\|/#@$%&`~^'₴*-+=" : "")};
     }
 }

@@ -46,7 +46,7 @@ public class PasswordController {
     ) throws IllegalStateOfAvailableSymbols {
         AvailableSymbols availableSymbols = new AvailableSymbols(size,  uppercase, lowercase, numbers, symbols);
         String pass = generator.generate(availableSymbols.getString(), availableSymbols.getSize());
-        return ResponseEntity.ok(new PasswordGenerateResponse(pass, generator.getReliability(pass)));
+        return ResponseEntity.ok(new PasswordGenerateResponse(pass, generator.getReliability(availableSymbols)));
     }
 
     @GetMapping("/{id}")
