@@ -1,10 +1,9 @@
 import React from 'react';
-import {BackgroundImage} from "../completed/BackgroundImage";
 import {RegistrationForm} from "../completed/RegistrationForm";
 
-function LogIn({setRegister}) {
+function LogIn() {
     return (
-            <RegistrationForm style="--login" setRegister={setRegister}/>
+            <RegistrationForm style="--login" />
     );
 }
 

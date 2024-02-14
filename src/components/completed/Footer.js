@@ -28,10 +28,8 @@ function Footer() {
     useEffect(() => {
         if (isInView) {
             document.getElementById("waves").style.position = "fixed"
-            console.log('Елемент у видимому полі');
         } else {
             document.getElementById("waves").style.position = "absolute"
-            console.log('Елемент у no видимому полі');
         }
     }, [isInView]);
 

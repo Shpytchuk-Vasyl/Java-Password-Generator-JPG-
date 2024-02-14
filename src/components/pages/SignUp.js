@@ -1,11 +1,10 @@
 import React from 'react';
 import {RegistrationForm} from "../completed/RegistrationForm";
-import {BackgroundImage} from "../completed/BackgroundImage";
 import "../completed/BackgroundImage.css"
 import "../completed/RegistrationForm.css"
-function SignUp({setRegister}) {
+function SignUp() {
     return (
-            <RegistrationForm style="--signup" setRegister={setRegister}/>
+            <RegistrationForm style="--signup"/>
     );
 }
 

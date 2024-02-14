@@ -1,11 +1,10 @@
 import "../../App.css"
 import "./Home.css"
 import React from 'react';
-import {BackgroundImage} from "../completed/BackgroundImage";
 import {Button} from "../Button";
 import Generator from "../completed/Generator";
 
-function Home() {
+function Home(  ) {
     return (
         <>
                 <div className="home-container">
