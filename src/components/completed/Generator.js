@@ -1,7 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import "./Generator.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UserService from "../../services/UserService";
+import PasswordSaveForm from "../PasswordSaveForm";
+import AuthService from "../../services/auth/AuthService";
+
 function Generator() {
     const [reliability, setReliability] = useState("very strong")
+    const [passwordString, setPasswordString] = useState("password")
     const [checkboxStates, setCheckboxStates] = useState({
             lowercase: true,
             uppercase: true,
@@ -24,9 +31,7 @@ function Generator() {
                 return updatedStates;
             });
         };
-    const  [sliderLength, setSliderLength = (length) => {
-
-    }] = useState({
+    const  [sliderLength, setSliderLength] = useState({
         min: 1,
         max: 50,
         value: 50,
@@ -39,6 +44,8 @@ function Generator() {
             sliderValue: (length - 1 - prevState.min) / (prevState.max - 2 - prevState.min) * 100
         }));
     };
+    const [saveClick, setSaveClick] = useState(false)
+
 
     const updateSlider = (newLength) => {
         updateSliderLength(newLength)
@@ -46,22 +53,61 @@ function Generator() {
         //document.getElementById("slider").value = newLength
     }
 
+    const generate = () => {
+
+        UserService.generatePassword(checkboxStates, {size: sliderLength.value}, (status, data) => {
+            if (status === 200) {
+                setPasswordString(data.password)
+                setReliability(data.reliability)
+            }
+            else {
+                toast.error("Server is not available now", {
+                    position: "top-center",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+            };
+        })
+    }
 
 
-        return (
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(passwordString)
+        toast.success("Copy " + passwordString, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+        });
+    }
+
+    return (
             <div className="generator-container" id="generator-container">
                 <h1>Java Password Generator</h1>
                 <p>Create strong and secure passwords to keep your account safe online.</p>
                 <div className="input-container">
                     <div className="input-controler">
                         <div className="input-">
-                            <input className="password-input" readOnly/>
-                            <label className="reliability-label">{reliability}</label>
+                            <input className="password-input" type="text" value={passwordString}
+                                   onInput={event => {
+                                       setPasswordString(event.target.value)
+                                   }}/>
+                            <div className="reliability-label">{reliability}</div>
                         </div>
-                        <i className="fa fa-copy"/>
+                        <i className="fa fa-copy" onClick={copyToClipboard}/>
+                        <i className="fa fa-save" onClick={e=> {
+                            if(AuthService.getUser() === null)  window.location.href = '/sign up'
+                            else setSaveClick(true)}
+                        }/>
                     </div>
                     <div className="button-wrapper">
-                        <button className="generate-button">Generate</button>
+                        <button className="generate-button" onClick={generate}>Generate</button>
+
                     </div>
                 </div>
                 <div className="generator-setting-container">
@@ -122,6 +168,11 @@ function Generator() {
                         </div>
                     </div>
                 </div>
+                <ToastContainer />
+                <PasswordSaveForm
+                    password={passwordString}
+                    isVisible={saveClick}
+                    handleCancel={() => {setSaveClick(false)}}/>
             </div>
         );
     }

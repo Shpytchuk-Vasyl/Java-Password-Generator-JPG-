@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import {Button} from "../Button";
 import "./Navbar.css"
-import UserService from "../../services/UserService"
 import AuthService from "../../services/auth/AuthService";
 
 
@@ -53,7 +52,8 @@ function Navbar() {
                     </li>
                     }
                     {(user !== null) && <li className="nav-item" onClick={e=>
-                    {AuthService.logout()
+                    {
+                        AuthService.logout()
                         setUser(null)
                     }}>
                         <Link to="/" className="nav-links-mobile">Log Out</Link>
