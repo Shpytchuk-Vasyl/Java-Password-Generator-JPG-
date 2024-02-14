@@ -1,12 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import "./RegistrationForm.css"
 import {Link} from "react-router-dom";
+import AuthService from "../../services/auth/AuthService";
+import UserService from "../../services/UserService";
+import {toast, ToastContainer} from "react-toastify";
 
 
 const STYLE = ["--signup", "--login"]
 export const RegistrationForm = ({style}) => {
 
     const [passwordShown, setPasswordShown] = useState(false);
+    const [email, setEmail] = useState("")
+    const [password1, setPassword1] = useState("")
+    const [password2, setPassword2] = useState("")
+
 
     useEffect(() => {
 
@@ -30,6 +37,76 @@ export const RegistrationForm = ({style}) => {
         window.location.href = '/'
     }
 
+    const registerUser = () => {
+
+        const validation = UserService.validUserData(email,password1,password2)
+        if(validation.isEmailValid && validation.isPasswordNotEmpty && validation.doPasswordsMatch && validation.isPasswordGreater8) {
+            AuthService.signup(email, password1, (status, data) => {
+                toast(data, {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                type : status === 200 ? "success" : "error"})
+                window.location.href = '/'
+
+            })
+        } else {
+
+            const msg = !validation.isEmailValid ? "Invalid email address" :
+                    !validation.isPasswordNotEmpty ? "Password can't be empty" :
+                    !validation.doPasswordsMatch ? "Passwords don't match" :
+                    !validation.isPasswordGreater8 ? "Password is short, at least 8 characters are required" : ""
+
+            toast.error(msg, {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            })
+
+            if(!validation.doPasswordsMatch) {
+                setPassword2("")
+            }
+        }
+    }
+    const loginUser = () => {
+
+        const validation = UserService.validUserData(email,password1,password1)
+        if(validation.isEmailValid && validation.isPasswordNotEmpty && validation.doPasswordsMatch && validation.isPasswordGreater8) {
+            AuthService.login(email, password1, (status, data) => {
+                toast(status === 200 ? "Success login" : data, {
+                    position: "top-center",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    type : status === 200 ? "success" : "error"})
+                window.location.href = '/'
+
+            })
+        } else {
+
+            const msg = !validation.isEmailValid ? "Invalid email address" :
+                    !validation.isPasswordNotEmpty ? "Password can't be empty" :
+                    !validation.isPasswordGreater8 ? "Password is short, at least 8 characters are required" : ""
+
+            toast.error(msg, {
+                position: "top-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            })
+        }
+    }
+
 
     const checkStyle = STYLE.includes(style) ? style : STYLE[0]
 
@@ -42,23 +119,27 @@ export const RegistrationForm = ({style}) => {
             <div className="form-inputs">
                 <div className="form-input">
                     <i className="fa fa-envelope"/>
-                    <input type="form-input-email" placeholder="Enter email adress"/>
+                    <input type="form-input-email" placeholder="email@example.com"
+                           value={email} onChange={e=>setEmail(e.target.value)}/>
                 </div>
                 <div className="form-input">
                     <i className={passwordShown ? "fa fa-unlock" : "fa fa-lock"}
                        onClick={event => setPasswordShown(!passwordShown)}/>
-                    <input type={passwordShown ? "text" : "password"} placeholder="Enter password"/>
+                    <input type={passwordShown ? "text" : "password"} placeholder="Enter password"
+                           value={password1} onChange={e=>setPassword1(e.target.value)} />
                 </div>
                 {checkStyle === STYLE[0] &&
                     <div className="form-input">
                         <i className={passwordShown ? "fa fa-unlock" : "fa fa-lock"}
                            onClick={event => setPasswordShown(!passwordShown)}/>
-                        <input type={passwordShown ? "text" : "password"} placeholder="Repeat password"/>
-                    </div>}
+                        <input type={passwordShown ? "text" : "password"} placeholder="Repeat password"
+                               value={password2} onChange={e=>setPassword2(e.target.value)}/>
+                    </div>
+                }
             </div>
             <div className="form-submit">
-                {checkStyle === STYLE[0] && <button className="submit" /*onClick={event => setUser(true)}*/>Sign Up</button>}
-                {checkStyle === STYLE[1] && <button className="submit" /*onClick={event => setUser(true)}*/>Log In</button>}
+                {checkStyle === STYLE[0] && <button className="submit" onClick={registerUser}>Sign Up</button>}
+                {checkStyle === STYLE[1] && <button className="submit" onClick={loginUser}>Log In</button>}
             </div>
             <div className="form-change-form">
                 {checkStyle === STYLE[0] && <p>Are you a member? <Link to="/log in" className="form-change-form-link">Log in now</Link></p>}
@@ -67,6 +148,7 @@ export const RegistrationForm = ({style}) => {
             <div id="form-google-button" className="form-google-button">
 
             </div>
+
         </div>
     )
 }

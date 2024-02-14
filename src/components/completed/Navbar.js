@@ -8,7 +8,7 @@ import AuthService from "../../services/auth/AuthService";
 function Navbar() {
     const [click,setClick] = useState(false)
     const [button,setButton] = useState(true)
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(AuthService.getUser())
 
     const showButton = () => {
         if(window.innerWidth <= 960) {

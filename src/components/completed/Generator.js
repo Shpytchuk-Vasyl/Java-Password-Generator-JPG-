@@ -8,7 +8,7 @@ import AuthService from "../../services/auth/AuthService";
 
 function Generator() {
     const [reliability, setReliability] = useState("very strong")
-    const [passwordString, setPasswordString] = useState("password")
+    const [passwordString, setPasswordString] = useState("")
     const [checkboxStates, setCheckboxStates] = useState({
             lowercase: true,
             uppercase: true,
@@ -93,7 +93,7 @@ function Generator() {
                 <div className="input-container">
                     <div className="input-controler">
                         <div className="input-">
-                            <input className="password-input" type="text" value={passwordString}
+                            <input className="password-input" type="text" placeholder="Password" value={passwordString}
                                    onInput={event => {
                                        setPasswordString(event.target.value)
                                    }}/>

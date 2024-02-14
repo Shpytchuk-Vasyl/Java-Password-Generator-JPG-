@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import UserService from "../services/UserService";
 import AuthService from "../services/auth/AuthService";
 import {toast} from "react-toastify";
+import "./PasswordSaveForm.css"
 const PasswordSaveForm = ({password, isVisible, handleCancel}) => {
     const [name, setName] = useState('');
 
 
     function handleSave() {
-
+        const owner = AuthService.getUser()
         UserService.saveUserPassword(
             {
                 "name": name,
                 "password": password,
-                "owner": AuthService.getUser()
+                "owner": owner
             }, (status, data) => {
-
-            toast.success(data, {
+            toast(data, {
                 position: "top-center",
                 autoClose: 4000,
                 hideProgressBar: false,
