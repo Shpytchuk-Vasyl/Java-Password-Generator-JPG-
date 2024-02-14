@@ -34,8 +34,6 @@ class AuthService {
     }
 
     getUser() {
-        const userObject = { user: "tru" };
-        localStorage.setItem("user", JSON.stringify(userObject))
         return JSON.parse(localStorage.getItem("user")).user
     }
 

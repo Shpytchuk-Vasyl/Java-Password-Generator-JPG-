@@ -30,6 +30,7 @@
     align-items: center;
     justify-content: space-around;
     margin: auto;
+    padding: 10px;
     #width: fit-content;
     font-size: 40px;
     width: 100%;
@@ -49,50 +50,58 @@
 }
 
 .input- {
+
     width: 80%;
-    position: relative;
+    height: 5rem;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-items: center;
+    flex-grow: 1;
 }
 
-.password-input {
-    font-size: 50px;
+.password-input
+{
+    font-size: 20px;
+    flex-grow: 1;
     border: none;
-    width: 100%;
-    border-radius: 20px;
-    opacity: 0;
-    padding: 10px;
-    margin: auto;
+    background: transparent;
+    outline: none;
+    width: 80%;
 }
+
+.reliability-label {
+    flex-shrink: 0;
+    font-size: 15px;
+    background: transparent;
+
+}
+
 
 .generate-button {
     width: 100%;
-    height: inherit;
+    height: 5rem;
     border-radius: inherit;
     border: none;
     outline: none;
     font-size: 20px;
     color: rgba(0,0,0,0.9);
-    opacity: 0.7;
+    #opacity: 0.7;
     background: transparent;
 }
 
 
 
-.reliability-label {
-    position: absolute;
-    font-size: 15px;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    pointer-events: none;
-    opacity: 0.8;
-    color: #000;
-    border-radius: 15px;
-}
+
 
 .input-controler > i {
     color: #000;
     opacity: 0.8;
-
+    margin-left: 10px;
+    font-size: 20px;
+}
+.input-controler > i:hover {
+   scale: 1.5;
 }
 
 
@@ -114,11 +123,11 @@
 
 .setting-length-wrapper {
     margin-right: 30px;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .slider-settings > button {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .slider-settings {
@@ -179,7 +188,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 25px;
+    font-size: 20px;
     #opacity: 0.7;
 }
 
@@ -240,16 +249,12 @@
 
 
 @media screen and (max-width: 960px) {
-    .input-controler,
-    .password-input {
+    .input-controler {
         margin-top: 30px;
-        font-size: 20px;
+        font-size: 15px;
         border-radius: 15px;
     }
 
-    .generate-button {
-        height: 60px;
-    }
 
 
     .input-container {
@@ -257,11 +262,15 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 50%
     }
 
+    .input- {
+        font-size: 15px;
+    }
+
+
     .generator-setting-container {
-        width: 50%;
+        width: 60%;
         #background: black;
     }
 
@@ -274,4 +283,18 @@
         font-size: 18px;
     }
 
+    .input-controler > i {
+        font-size: 20px;
+    }
+
+}
+
+
+
+.toast-message {
+    background: rgba(0,0,0,0.7);
+    color:rgba(255,255,255,0.4);
+    font-size: 20px;
+    width: 34vw;
+    padding: 30px 20px;
 }

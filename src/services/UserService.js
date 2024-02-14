@@ -5,11 +5,24 @@ import AuthHeader from "./auth/AuthHeader";
 const API_URL = "http://localhost:8080/api/v1/"
 class UserService {
 
-    generatePassword(symbols, length, handleResponse) {
-        axios.get(API_URL+ "passwords/", {symbols, length})
+    generatePassword(symbols, size, handleResponse) {
+
+        axios.get(API_URL+ "passwords/generate/",{ params: {
+                "uppercase": symbols.uppercase,
+                "lowercase": symbols.lowercase,
+                "numbers": symbols.numbers,
+                "symbols": symbols.symbols,
+                "size" : size.size} })
             .then(resource => {
-                    handleResponse(resource.status, resource.data);
+                console.log(resource)
+                handleResponse(resource.status, resource.data);
             })
+            .catch(error => {
+                handleResponse(error.response ? error.response.status : error.request.code, error.response ? error.response.message : error.request.message);
+                console.log(error)
+            })
+
+
     }
 
     saveUserPassword(password, handleResponse) {
@@ -34,7 +47,7 @@ class UserService {
     }
 
     getUsersPasswords(handleResponse) {
-        axios.get(API_URL+ "passwords/" + AuthService.getUser().id, {headers: AuthHeader(), params: AuthService.getUser()} )
+        axios.get(API_URL+ "passwords/" + AuthService.getUser().id, {headers: AuthHeader()} )
             .then(resource => {
                     handleResponse(resource.status, resource.data);
             })
