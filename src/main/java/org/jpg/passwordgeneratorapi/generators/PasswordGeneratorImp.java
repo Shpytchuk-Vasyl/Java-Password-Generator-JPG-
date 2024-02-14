@@ -28,6 +28,7 @@ public class PasswordGeneratorImp implements PasswordGenerator {
     @Override
     public String getReliability(AvailableSymbols pass) {
         if(pass.getSize() < 6) return "very weak";
+        if(pass.getSize() > 25) return "very strong";
         int res = (pass.getUppercase() ? 1 : 0) +
                 (pass.getLowercase() ? 1 : 0) +
                 (pass.getSymbols() ? 1 : 0) +
