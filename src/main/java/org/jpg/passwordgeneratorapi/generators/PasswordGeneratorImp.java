@@ -8,6 +8,8 @@ import java.util.stream.*;
 
 @Component
 public class PasswordGeneratorImp implements PasswordGenerator {
+
+
     @Override
     public String generate(String available, Integer size) throws IllegalStateOfAvailableSymbols {
         if(available == null || available.isBlank() || size < 1)
@@ -19,5 +21,10 @@ public class PasswordGeneratorImp implements PasswordGenerator {
                 .map(i -> random.nextInt(0, stringSize))
                 .mapToObj(i -> available.charAt(i) + "")
                 .collect(Collectors.joining());
+    }
+
+    @Override
+    public String getReliability(String pass) {
+        return null;
     }
 }

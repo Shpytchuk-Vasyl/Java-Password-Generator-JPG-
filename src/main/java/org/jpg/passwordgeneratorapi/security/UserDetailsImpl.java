@@ -1,6 +1,7 @@
 package org.jpg.passwordgeneratorapi.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
 import org.jpg.passwordgeneratorapi.entity.User;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,9 +11,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+@Getter
 public class UserDetailsImpl implements UserDetails {
 
-    private Long id;
+    private final Long id;
     private final String email;
 
     @JsonIgnore

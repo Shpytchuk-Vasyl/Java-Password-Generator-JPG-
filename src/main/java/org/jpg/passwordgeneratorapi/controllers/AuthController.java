@@ -39,13 +39,14 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody User user) throws UserNotFoundException, IncorrectPasswordException, UserRegisteredWithGoogleException {
-        userService.login(user);
+        User login = userService.login(user);
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtil.generateJwtToken(authentication);
 
-        return ResponseEntity.ok(new JwtResponse(jwt, user.getEmail()));
+        login.setPassword(null);
+        return ResponseEntity.ok(new JwtResponse(jwt, login));
 
     }
 

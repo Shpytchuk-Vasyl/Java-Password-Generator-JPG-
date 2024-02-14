@@ -1,19 +1,29 @@
 package org.jpg.passwordgeneratorapi.generators;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jpg.passwordgeneratorapi.exceptions.IllegalStateOfAvailableSymbols;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class AvailableSymbols {
 
     @Positive(message = "Size should be greater than 0")
     private Integer size;
     private Boolean uppercase, lowercase, numbers, symbols;
+
+    @Valid
+    public AvailableSymbols(Integer size, Boolean uppercase, Boolean lowercase, Boolean numbers, Boolean symbols) {
+        this.size = size;
+        this.uppercase = uppercase;
+        this.lowercase = lowercase;
+        this.numbers = numbers;
+        this.symbols = symbols;
+    }
 
     public String getString() throws IllegalStateOfAvailableSymbols {
         if((uppercase || lowercase || numbers ||symbols) == false)

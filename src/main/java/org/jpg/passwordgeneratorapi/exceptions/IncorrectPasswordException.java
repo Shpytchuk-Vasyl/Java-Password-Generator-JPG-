@@ -4,4 +4,8 @@ public class IncorrectPasswordException extends Throwable {
     public IncorrectPasswordException() {
         super("You entered an incorrect password");
     }
+
+    public IncorrectPasswordException(String message) {
+        super(message);
+    }
 }

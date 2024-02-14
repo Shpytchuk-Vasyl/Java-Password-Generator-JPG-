@@ -1,17 +1,17 @@
 package org.jpg.passwordgeneratorapi.security.jwt;
 
-import jakarta.validation.constraints.Email;
-import lombok.Builder;
+import jakarta.validation.Valid;
 import lombok.Data;
+import org.jpg.passwordgeneratorapi.entity.User;
 
 @Data
 public class JwtResponse {
 
-    private String jwt;
-    private String email;
+    private String jwtToken;
+    private User user;
 
-    public JwtResponse(String jwt, String email) {
-        this.jwt = jwt;
-        this.email = email;
+    public JwtResponse(String jwt, User user) {
+        this.jwtToken = jwt;
+        this.user = user;
     }
 }

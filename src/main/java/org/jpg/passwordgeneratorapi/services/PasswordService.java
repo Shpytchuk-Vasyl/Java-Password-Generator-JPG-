@@ -1,6 +1,7 @@
 package org.jpg.passwordgeneratorapi.services;
 
 import org.jpg.passwordgeneratorapi.entity.Password;
+import org.jpg.passwordgeneratorapi.exceptions.IncorrectPasswordException;
 import org.jpg.passwordgeneratorapi.exceptions.UserNotFoundException;
 import org.jpg.passwordgeneratorapi.repository.PasswordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,8 @@ public class PasswordService {
         return repository.findAllByOwnerId(id);
     }
 
-    public Password editPassword(Password newPassword) throws UserNotFoundException {
+    public Password editPassword(Password newPassword) throws UserNotFoundException, IncorrectPasswordException {
+        if(newPassword.getId() == null) throw new IncorrectPasswordException("Incorrect password id");
         return addNewPassword(newPassword);
     }
 

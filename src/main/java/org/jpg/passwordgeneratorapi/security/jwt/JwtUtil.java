@@ -35,7 +35,7 @@ public class JwtUtil {
                 .decryptWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
                 .verifyWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
                 .build()
-                .parseEncryptedClaims(token)
+                .parseSignedClaims(token)
                 .getPayload();
     }
 

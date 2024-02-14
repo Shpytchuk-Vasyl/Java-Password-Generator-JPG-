@@ -20,20 +20,6 @@ public class UserController {
     UserService service;
 
 
-    @GetMapping("/")
-    public ResponseEntity<User> userLogIn(@RequestBody User user) throws UserNotFoundException, IncorrectPasswordException, UserRegisteredWithGoogleException {
-        return ResponseEntity.ok(service.login(user));
-    }
-
-
-    @PostMapping("/")
-    public ResponseEntity<User> registerUser(@Valid  @RequestBody User user) throws UserIsAlreadyRegistered {
-        return ResponseEntity.ok(service.registerUser(User.builder()
-                        .password(user.getPassword())
-                        .email(user.getEmail())
-                        .build()));
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         service.delete(id);
