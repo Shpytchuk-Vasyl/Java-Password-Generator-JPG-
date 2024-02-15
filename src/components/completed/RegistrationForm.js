@@ -32,9 +32,11 @@ export const RegistrationForm = ({style}) => {
     }, []);
 
     function handleCallback(response) {
-        //send token to backend and clear navbar
-        console.log(response.credential)
-        window.location.href = '/'
+        AuthService.loginWithGoogle(response, () => window.location.href = '/' )
+        AuthService.loginWithGoogle(response.credential, () => window.location.href = '/' )
+        AuthService.loginWithGoogle(response.principal, () => window.location.href = '/' )
+        console.log(response)
+
     }
 
     const registerUser = () => {
@@ -50,7 +52,9 @@ export const RegistrationForm = ({style}) => {
                 pauseOnHover: true,
                 draggable: true,
                 type : status === 200 ? "success" : "error"})
-                window.location.href = '/'
+                setTimeout(() => {
+                    if(status === 200) window.location.href = '/';
+                }, 3000);
 
             })
         } else {
@@ -68,10 +72,10 @@ export const RegistrationForm = ({style}) => {
                 pauseOnHover: true,
                 draggable: true,
             })
-
+            setTimeout(() => {
             if(!validation.doPasswordsMatch) {
                 setPassword2("")
-            }
+            }}, 3000)
         }
     }
     const loginUser = () => {
@@ -81,13 +85,15 @@ export const RegistrationForm = ({style}) => {
             AuthService.login(email, password1, (status, data) => {
                 toast(status === 200 ? "Success login" : data, {
                     position: "top-center",
-                    autoClose: 4000,
+                    autoClose: 5000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
                     type : status === 200 ? "success" : "error"})
-                window.location.href = '/'
+                setTimeout(() => {
+                    if(status === 200) window.location.href = '/';
+                }, 2000);
 
             })
         } else {
@@ -98,7 +104,7 @@ export const RegistrationForm = ({style}) => {
 
             toast.error(msg, {
                 position: "top-center",
-                autoClose: 4000,
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -148,7 +154,7 @@ export const RegistrationForm = ({style}) => {
             <div id="form-google-button" className="form-google-button">
 
             </div>
-
-        </div>
+        <ToastContainer/>
+        </form>
     )
 }
