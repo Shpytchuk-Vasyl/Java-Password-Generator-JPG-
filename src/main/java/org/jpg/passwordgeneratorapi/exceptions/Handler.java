@@ -16,13 +16,23 @@ public class Handler {
         return new ResponseEntity<> (ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler({MethodArgumentNotValidException.class,
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> methodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {
+        return new ResponseEntity<> (ex.getBindingResult().getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({
             IllegalStateOfAvailableSymbols.class,
             IncorrectPasswordException.class,
             UserRegisteredWithGoogleException.class,
             UserIsAlreadyRegistered.class})
     public ResponseEntity<String> methodArgumentNotValidException(Exception ex, WebRequest request) {
         return new ResponseEntity<> (ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({IllegalStateException.class})
+    public ResponseEntity<String> illegalStateException(Exception ex, WebRequest request) {
+        return new ResponseEntity<> ("Something went wrong", HttpStatus.BAD_REQUEST);
     }
 
 }
