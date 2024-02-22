@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import "./RegistrationForm.css"
 import {Link} from "react-router-dom";
 import AuthService from "../../services/auth/AuthService";
@@ -15,43 +15,27 @@ export const RegistrationForm = ({style}) => {
     const [password2, setPassword2] = useState("")
 
 
-    useEffect(() => {
+    function handleCallback(status, data) {
 
-        window.google.accounts.id.initialize({
-            client_id: "209204224730-mg6cskm3deja5hb48shsqia7kjg4761n.apps.googleusercontent.com",
-            callback: handleCallback
-        })
-
-        window.google.accounts.id.renderButton(
-            document.getElementById("form-google-button"),
-            {theme: "outline",
-                size: "large",
-                width: "300px",
-                text: "continue_with"}
-        )
-    }, []);
-
-    function handleCallback(response) {
-        AuthService.loginWithGoogle(response, () => window.location.href = '/' )
-        AuthService.loginWithGoogle(response.credential, () => window.location.href = '/' )
-        AuthService.loginWithGoogle(response.principal, () => window.location.href = '/' )
-        console.log(response)
+        toast(data, {
+            position: "top-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            type : status === 200 ? "success" : "error"})
 
     }
+
+
 
     const registerUser = () => {
 
         const validation = UserService.validUserData(email,password1,password2)
         if(validation.isEmailValid && validation.isPasswordNotEmpty && validation.doPasswordsMatch && validation.isPasswordGreater8) {
             AuthService.signup(email, password1, (status, data) => {
-                toast(data, {
-                position: "top-center",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                type : status === 200 ? "success" : "error"})
+                handleCallback(status,data)
                 setTimeout(() => {
                     if(status === 200) window.location.href = '/';
                 }, 3000);
@@ -83,14 +67,7 @@ export const RegistrationForm = ({style}) => {
         const validation = UserService.validUserData(email,password1,password1)
         if(validation.isEmailValid && validation.isPasswordNotEmpty && validation.doPasswordsMatch && validation.isPasswordGreater8) {
             AuthService.login(email, password1, (status, data) => {
-                toast(status === 200 ? "Success login" : data, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    type : status === 200 ? "success" : "error"})
+                handleCallback(status,data)
                 setTimeout(() => {
                     if(status === 200) window.location.href = '/';
                 }, 2000);
@@ -144,17 +121,30 @@ export const RegistrationForm = ({style}) => {
                 }
             </div>
             <div className="form-submit">
-                {checkStyle === STYLE[0] && <button className="submit" onClick={registerUser}>Sign Up</button>}
-                {checkStyle === STYLE[1] && <button className="submit" onClick={loginUser}>Log In</button>}
+                {checkStyle === STYLE[0] && <button className="submit-button" onClick={registerUser}>Sign Up</button>}
+                {checkStyle === STYLE[1] && <button className="submit-button" onClick={loginUser}>Log In</button>}
             </div>
             <div className="form-change-form">
                 {checkStyle === STYLE[0] && <p>Are you a member? <Link to="/log in" className="form-change-form-link">Log in now</Link></p>}
                 {checkStyle === STYLE[1] && <p>Not a member yet? <Link to="/sign up" className="form-change-form-link">Register now</Link></p>}
             </div>
-            <div id="form-google-button" className="form-google-button">
-
-            </div>
-        <ToastContainer/>
-        </form>
+            <button className="submit-button with-google" onClick={ () =>
+                AuthService.loginWithGoogle((status, msg) => {
+                handleCallback(status, msg)
+                setTimeout(() => {
+                    if(status ? (status === 200) : false) window.location.href = '/';
+                }, 3000);
+            })}>
+                <div className="icon">
+                    <img
+                        src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"
+                        alt="Continue with google"/>
+                </div>
+                <div className="text">
+                    Continue with Google
+                </div>
+            </button>
+            <ToastContainer/>
+        </div>
     )
 }
