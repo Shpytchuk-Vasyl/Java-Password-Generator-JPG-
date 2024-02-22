@@ -5,6 +5,13 @@ import AuthHeader from "./auth/AuthHeader";
 const API_URL = "http://localhost:8080/api/v1/"
 class UserService {
 
+    errorHandle = (error, handleResponse) => {
+        let msg = this.userIsNotAuthorized(error.response ? error.response.status : 500, error.response)
+        if(msg === null) msg = error.message
+        handleResponse(error.response ? error.response.status : 500 , msg);
+        console.log(error)
+    }
+
     generatePassword(symbols, size, handleResponse) {
 
         axios.get(API_URL+ "passwords/generate/",{ params: {
@@ -17,10 +24,7 @@ class UserService {
                 console.log(resource)
                 handleResponse(resource.status, resource.data);
             })
-            .catch(error => {
-                handleResponse(error.response ? error.response.status : error.request.code, error.response ? error.response.message : error.request.message);
-                console.log(error)
-            })
+            .catch(error => {this.errorHandle(error, handleResponse)})
 
 
     }
@@ -30,10 +34,7 @@ class UserService {
             .then(resource => {
                     handleResponse(resource.status, resource.data);
             })
-            .catch(error => {
-                handleResponse(error.response ? error.response.status : error.request.code, error.response ? error.response.data : error.request.data);
-                console.log(error)
-            })
+            .catch(error => {this.errorHandle(error,handleResponse)})
     }
 
     editUserPassword(password, handleResponse) {
@@ -43,10 +44,7 @@ class UserService {
                 console.log(resource)
 
             })
-            .catch(error => {
-                handleResponse(error.response ? error.response.status : error.request.code, error.response ? error.response.message : error.request.message);
-                console.log(error)
-            })
+            .catch(error => {this.errorHandle(error,handleResponse)})
     }
 
     deleteUserPassword(password, handleResponse) {
@@ -55,10 +53,7 @@ class UserService {
                 handleResponse(resource.status, resource.data);
                 console.log(resource)
             })
-            .catch(error => {
-                handleResponse(error.response ? error.response.status : error.request.code, error.response ? error.response.message : error.request.message);
-                console.log(error)
-            })
+            .catch(error => {this.errorHandle(error,handleResponse)})
     }
 
     getUsersPasswords(handleResponse) {
@@ -68,10 +63,18 @@ class UserService {
                 console.log(resource)
                 return resource.data
             })
-            .catch(error => {
-                handleResponse(error.response ? error.response.status : error.request.code, error.response ? error.response.message : error.request.message);
-                console.log(error)
-            })
+            .catch(error => {this.errorHandle(error,handleResponse)})
+    }
+
+
+    userIsNotAuthorized = (status, response) => {
+        if(status === 401) {
+            AuthService.logout()
+            return "User is not authorized"
+        } else if(status === 400) {
+            return response.data
+        }
+        return null
     }
 
 
