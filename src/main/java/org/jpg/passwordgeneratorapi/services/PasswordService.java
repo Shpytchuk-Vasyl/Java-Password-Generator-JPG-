@@ -26,9 +26,9 @@ public class PasswordService {
         return repository.findAllByOwnerId(id);
     }
 
-    public Password editPassword(Password newPassword) throws UserNotFoundException, IncorrectPasswordException {
+    public void editPassword(Password newPassword) throws UserNotFoundException, IncorrectPasswordException {
         if(newPassword.getId() == null) throw new IncorrectPasswordException("Incorrect password id");
-        return addNewPassword(newPassword);
+        repository.saveAndFlush(newPassword);
     }
 
     public void deletePasswordById(Long id) {

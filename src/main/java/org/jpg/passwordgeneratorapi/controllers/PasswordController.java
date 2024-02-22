@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("api/v1/passwords")
 public class PasswordController {
 
@@ -62,14 +61,13 @@ public class PasswordController {
         service.addNewPassword(Password.builder()
                         .password(password.getPassword())
                         .name(password.getName())
-                        .owner(userService.findUser(password.getOwner().getEmail()))
+                        .owner(password.getOwner())
                         .build());
         return ResponseEntity.ok("Password saved successfully");
     }
 
     @PutMapping("/")
     public ResponseEntity<String> editPassword(@Valid @RequestBody Password password) throws UserNotFoundException, IncorrectPasswordException {
-        password.setOwner(userService.findUser(password.getOwner().getEmail()));
         service.editPassword(password);
         return ResponseEntity.ok("Password saved successfully");
     }
