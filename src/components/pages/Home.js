@@ -3,6 +3,7 @@ import "./Home.css"
 import React from 'react';
 import {Button} from "../Button";
 import Generator from "../completed/Generator";
+import {ToastContainer} from "react-toastify";
 
 function Home(  ) {
     return (
@@ -27,6 +28,7 @@ function Home(  ) {
                         </Button>
                     </div>
                     <Generator />
+                    <ToastContainer/>
                 </div>
         </>
     );
