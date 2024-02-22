@@ -1,5 +1,5 @@
 # JAVA PASSWORD GENERATOR (JPG)
-JPG is my first encounter with Spring Security, Spring Security OAuth2, JWT, React, and GCP.\
+JPG is my first encounter with **Spring Security, Spring Security OAuth2, JWT, React, and GCP**\
 The main idea behind this project is not only to generate passwords easily,\
 but also to store them in a convenient location.\
 Additionally, I was eager to explore user registration and authentication methods.
