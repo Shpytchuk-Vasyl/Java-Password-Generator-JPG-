@@ -43,8 +43,8 @@
     text-align: center;
     width: 60vw;
     justify-content: start;
-    margin-right: 2rem;
-    margin-left: 1rem;
+    margin-right: 1rem;
+    #margin-left: 1rem;
 }
 
 .nav-item {

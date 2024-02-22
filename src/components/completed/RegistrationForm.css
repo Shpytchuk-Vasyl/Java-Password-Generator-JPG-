@@ -74,7 +74,6 @@
     border: none;
     outline: none;
 
-
 }
 
 .form-change-form {
@@ -113,7 +112,7 @@
     width: 75%;
 }
 
-.submit {
+.submit-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,6 +125,33 @@
     transition: border 0.3s ease;
 }
 
-.submit:hover {
+.submit-button:hover {
     border-color: #242424;
+}
+
+
+.with-google {
+    display: flex;
+    width: 75%;
+    align-items: center;
+    margin: 20px auto;
+    box-shadow: 3px 5px 10px rgba(91, 134, 240, .5);
+
+    .icon {
+        height: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+
+        img {
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    .text {
+        margin: 0 42px;
+
+    }
 }
